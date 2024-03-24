@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
+const Carousel = ({ children, transitionTime, getIndex, onChange }) => {
 
     transitionTime = transitionTime || 0.3;
 
@@ -9,6 +9,7 @@ const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
     
     const [childWidth, setChildWidth] = useState(0);
     const [currentChildIndex, setCurrentChildIndex] = useState(1);
+    const [index, setIndex] = useState(0);
     const [touchStartX, setTouchStartX] = useState(null);
 
 
@@ -17,6 +18,13 @@ const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
             setChildWidth(childWrapper.current.clientWidth);
         }
     }, [childWrapper]);
+
+    useEffect(() => {
+        if (getIndex)
+            getIndex(index);
+        onChange(index);
+    }, [index]);
+
 
     const handleTouchStart = (e) => {
         setTouchStartX(e.touches[0].clientX);
@@ -35,7 +43,6 @@ const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
         } else if (diff < 0) {
             handlePrev();
         }
-        onChange();
     }
 
 
@@ -55,13 +62,12 @@ const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
             setCurrentChildIndex(0);
         }
 
-        if(setIndex){
-            if(currentChildIndex === children.length){
-                setIndex(0);
-            }else{
-                setIndex(currentChildIndex);
-            }
+        if(currentChildIndex === children.length){
+            setIndex(0);
+        }else{
+            setIndex(currentChildIndex);
         }
+        
     }
 
     const handlePrev = () => {
@@ -79,12 +85,10 @@ const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
             setCurrentChildIndex(children.length + 1);
         }
 
-        if(setIndex){
-            if(currentChildIndex === 1){
-                setIndex(children.length - 1);
-            }else{
-                setIndex(currentChildIndex - 2);
-            }
+        if(currentChildIndex === 1){
+            setIndex(children.length - 1);
+        }else{
+            setIndex(currentChildIndex - 2);
         }
     }
 
