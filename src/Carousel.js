@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const Carousel = ({ children, transitionTime, setIndex }) => {
+const Carousel = ({ children, transitionTime, setIndex, onChange }) => {
 
     transitionTime = transitionTime || 0.3;
 
@@ -35,6 +35,7 @@ const Carousel = ({ children, transitionTime, setIndex }) => {
         } else if (diff < 0) {
             handlePrev();
         }
+        onChange();
     }
 
 
