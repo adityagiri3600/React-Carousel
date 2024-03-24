@@ -1,23 +1,16 @@
 import logo from './logo.svg';
+import Carousel from './Carousel';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Carousel transitionTime={0.3}>
+        <div style={{ backgroundColor: 'red', height: '100px', width: '200px' }}></div>
+        <div style={{ backgroundColor: 'green', height: '100px', width: '200px' }}></div>
+        <div style={{ backgroundColor: 'blue', height: '100px', width: '200px' }}></div>
+        <div style={{ backgroundColor: 'yellow', height: '100px', width: '200px' }}></div>
+      </Carousel>
     </div>
   );
 }
