@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const Carousel = ({ children, transitionTime }) => {
+const Carousel = ({ children, transitionTime, setIndex }) => {
 
     transitionTime = transitionTime || 0.3;
 
@@ -53,6 +53,14 @@ const Carousel = ({ children, transitionTime }) => {
         else{
             setCurrentChildIndex(0);
         }
+
+        if(setIndex){
+            if(currentChildIndex === children.length){
+                setIndex(0);
+            }else{
+                setIndex(currentChildIndex);
+            }
+        }
     }
 
     const handlePrev = () => {
@@ -69,11 +77,18 @@ const Carousel = ({ children, transitionTime }) => {
         else{
             setCurrentChildIndex(children.length + 1);
         }
+
+        if(setIndex){
+            if(currentChildIndex === 1){
+                setIndex(children.length - 1);
+            }else{
+                setIndex(currentChildIndex - 2);
+            }
+        }
     }
 
     return (
         <>
-            <h1>{currentChildIndex}</h1>
             <div 
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
